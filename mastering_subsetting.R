@@ -74,3 +74,81 @@ vector_factores[1]
 vector_factores[1, drop = TRUE]
 
 
+# MASTERING SUBSETTING
+
+vect_bio <- c("AMP", "ATP", "cAMP",
+              "AMP", "cAMP","ATP", 
+              "ATP")
+abrev_bio <- c(AMP = "AMP cíclico", ATP = "adenosín trifosfato", 
+               cAMP = "adenosín trifosfato")
+
+abrev_bio[vect_bio]
+unname(abrev_bio[vect_bio])
+
+df <- mtcars
+cyl_int <- c(4,4,4,6,8)
+subint <- match(cyl_int, df$cyl)
+subint
+df[subint, ]
+
+# TOMAR MUESTRAS ALEATORIAS
+df[sample(nrow(df)), ]
+df[sample(nrow(df), 5), ]
+df[sample(nrow(df), 11, replace = FALSE), ] #SI LO PASAMOS A TRUE ...
+
+df2 <- df[sample(nrow(df)), 3:1]
+df2[order(df2$disp), ]
+df2[, order(names(df2))]
+
+# ELIMINAR COLUMNAS
+
+df[setdiff(colnames(df), "cyl")]
+df$cyl <- NULL
+
+df <- mtcars
+df[df$carb == 4, ]
+df[df$qsec > 16 & df$cyl == 4, ]
+df[rownames(df)=="Cadillac Fleetwood", ]
+
+iris_data <- iris
+names_iris <- colnames(iris_data)
+stringr::str_detect(names_iris, "Petal")
+select_col <- stringr::str_detect(names_iris, "Petal")
+Species_str <- iris_data[ , select_col]
+
+lenght_virginica_2 <- iris_data[iris_data$Species=="virginica", c(1,3)]
+
+# Con pipe %>% 
+lenght_virginica_tidy <- iris_data %>% filter(Petal.Length > 1.6 & Species == "setosa" ) %>% 
+  select(Sepal.Length, Petal.Length, Species)
+
+
+# OCUPANDO LOGICOS
+x1 <- 1:10 %% 2 == 0
+x2 <- which(x1)
+
+
+y1 <- 1:10 %% 5 == 0
+y2 <- which(y1)
+
+
+# X & Y <-> intersect(x, y)
+x1 & y1
+intersect(x2, y2)
+
+
+# X | Y <-> union(x, y)
+x1 | y1
+union(x2, y2)
+
+
+# X & !Y <-> setdiff(x, y)
+x1 & !y1
+setdiff(x2, y2)
+
+
+# xor(X, Y) <-> setdiff(union(x, y), intersect(x, y))
+xor(x1, y1)
+setdiff(union(x2, y2), intersect(x2, y2))
+
+
