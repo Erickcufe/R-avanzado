@@ -124,31 +124,31 @@ lenght_virginica_tidy <- iris_data %>% filter(Petal.Length > 1.6 & Species == "s
 
 
 # OCUPANDO LOGICOS
-x1 <- 1:10 %% 2 == 0
-x2 <- which(x1)
+cyl_3 <- df$cyl==4
+x2 <- which(cyl_3)
 
-
-y1 <- 1:10 %% 5 == 0
-y2 <- which(y1)
+cyl_random <- df[sample(nrow(df), 32),]
+cyl_select <- cyl_random$cyl==4
+y2 <- which(cyl_select)
 
 
 # X & Y <-> intersect(x, y)
-x1 & y1
+cyl_3 & cyl_select
 intersect(x2, y2)
 
 
 # X | Y <-> union(x, y)
-x1 | y1
+cyl_3 | cyl_select
 union(x2, y2)
 
 
 # X & !Y <-> setdiff(x, y)
-x1 & !y1
+cyl_3 & !cyl_select
 setdiff(x2, y2)
 
 
 # xor(X, Y) <-> setdiff(union(x, y), intersect(x, y))
-xor(x1, y1)
+xor(cyl_3, cyl_select)
 setdiff(union(x2, y2), intersect(x2, y2))
 
 
