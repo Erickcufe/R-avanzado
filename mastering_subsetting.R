@@ -152,3 +152,6 @@ xor(cyl_3, cyl_select)
 setdiff(union(x2, y2), intersect(x2, y2))
 
 
+# Ultimo tip
+cyls <- c(4,4,6,8)
+df[df$cyl %in% cyls, ]
